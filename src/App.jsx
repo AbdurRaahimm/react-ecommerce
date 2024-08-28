@@ -1,41 +1,50 @@
-import { useState } from 'react'
-import reactLogo from '/react.svg'
-import viteLogo from '/vite.svg'
-import tailwindLogo from '/tailwindLogo.png'
-import './App.css'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
+import Home from "./pages/Home"
+import ErrorPage from "./pages/ErrorPage"
+import Contact from "./pages/Contact"
+import Posts, { Dataloader } from "./pages/Posts"
+import Post from "./pages/Post"
+import { useState } from "react"
+import Loading from "./components/Loading"
+import Layout from "./components/Layout"
+import NotFound from "./pages/NotFound"
+import SingleProduct from "./pages/SingleProduct"
+import OfferModal from "./components/OfferModal"
+import Shop from "./pages/Shop"
+import Cart from "./pages/Cart"
+import About from "./pages/About"
 
-function App() {
-  const [count, setCount] = useState(0)
-  console.log(count); 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Layout />} errorElement={<ErrorPage />} >
+        <Route index element={<Home />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="products" element={<Shop />} />
+        <Route path="products/:category" element={<Shop />} />  
+        <Route path="cart" element={<Cart />} />
+        <Route path="product/:id" element={<SingleProduct />} />
+        <Route path="about" element={<About />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="posts" element={<Posts />} loader={Dataloader} />
+      </Route>
+    </>
+  )
+)
+
+export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 2000);
   return (
-    <div className=''>
-      <div className='flex justify-center'>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo " alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react " alt="React logo" />
-        </a>
-        <a href="https://tailwindcss.com/docs" target="_blank">
-          <img src={tailwindLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-3xl font-bold text-green-500">Vite + React + Tailwind</h1>
-      <div className="card">
-        <button className='border-4 bg-indigo-500  focus:outline-none' onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p className='text-gray-900 py-2'>
-        <a className='text-green-500 capitalize' href="https://www.showwcase.com/abdurrahim" target="_blank">
-         created Starter by @Sayed Abdur Rahim
-        </a>
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite, React and Tailwind logos to learn more
-      </p>
-    </div>
+    <>
+      {isLoading ? <Loading /> : <RouterProvider router={router} />}
+      {/* <RouterProvider router={router} /> */}
+
+      {isLoading ? '' : <OfferModal />}
+
+    </>
   )
 }
 
-export default App
