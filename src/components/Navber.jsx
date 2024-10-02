@@ -10,7 +10,7 @@ export default function Navber() {
     return (
         <div className='sticky top-0 flex md:flex-row justify-between items-center shadow-md py-2 px-3 '>
             <Link to="/" className="text-2xl font-bold text-black capitalize italic flex justify-center items-center">
-                <img className='grayscale' src="/image.png" alt="logo" width={35} />
+                <img className='' src="/image.png" alt="logo" width={35} />
                 ShopEasy
             </Link>
 
@@ -20,7 +20,15 @@ export default function Navber() {
                     {
                         menus.map(menu => (
                             <li key={menu.id} className="group flex cursor-pointer flex-col font-bold">
-                                <NavLink to={menu.link} className="capitalize">{menu.title}</NavLink>
+                                <NavLink to={menu.link}
+                                style={({isActive})=>{
+                                    return {
+                                        color: isActive ? '#0ea5e9 ' : 'black',
+                                        fontWeight: isActive ? 'bold' : 'bold',
+                                        // borderBottom: isActive ? '3px solid rgb(0, 0, 0)' : '3px solid transparent',
+                                    }
+                                }}
+                                 className="capitalize font-bold">{menu.title}</NavLink>
                                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
                             </li>
                         ))

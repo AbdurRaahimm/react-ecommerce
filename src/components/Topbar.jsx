@@ -4,7 +4,7 @@ import SignUp from "../pages/SignUp";
 export default function Topbar() {
     return (
         <div className="bg-[#092B56] py-2">
-            <div className="flex justify-between items-center px-4">
+            <div className="flex justify-between items-center flex-col md:flex-row px-4">
                 <div className="flex justify-between text-sm md:text-lg ">
                     <div className="flex items-center justify-between mr-6">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-telephone text-white mr-2" viewBox="0 0 16 16">

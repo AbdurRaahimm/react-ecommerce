@@ -1,7 +1,10 @@
 import React from 'react'
 import ProductCard from './ProductCard'
+import { useProductContext } from '../context/products'
 
-export default function LatestProducts() {
+export default function LatestProducts({ limit }) {
+    const { isLoading, error, products: allProducts } = useProductContext();
+    // console.log(allProducts);
     return (
         <div>
             <div className="inline-flex items-center justify-center w-full">
@@ -14,12 +17,13 @@ export default function LatestProducts() {
             {/* Products */}
 
             <div className="grid grid-cols-1 gap-5 place-items-center  px-5 py-5 md:grid-cols-2 lg:grid-cols-4">
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
-                <ProductCard />
+                {
+                    isLoading ? <h1>Loading...</h1> :
+                        error ? <h1>{error}</h1> :
+                            allProducts.slice(0, limit).map((product) => {
+                                return <ProductCard key={product.id} product={product} />
+                            })
+                }
             </div>
 
 

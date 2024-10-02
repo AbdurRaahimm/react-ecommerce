@@ -1,16 +1,16 @@
 export const sliders = [
     {
-        img: "https://flone.jamstacktemplates.dev/assets/img/slider/slider-3.jpg",
+        img: "https://images.pexels.com/photos/1275229/pexels-photo-1275229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         title: "Escape 1",
         des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement."
     },
     {
-        img: "https://flone.jamstacktemplates.dev/assets/img/slider/slider-2.jpg",
+        img: "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         title: "Escape 2",
         des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement."
     },
     {
-        img: "https://flone.jamstacktemplates.dev/assets/img/slider/slider-1.jpg",
+        img: "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         title: "Escape 3",
         des: "A Symphony of Tranquility. Experience the perfect blend of relaxation and excitement."
     },

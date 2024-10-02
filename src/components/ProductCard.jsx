@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { formatPrice } from "../libs/formatPrice";
 
-export default function ProductCard() {
+export default function ProductCard({ product }) {
+    // console.log(product);
+    const { id, name, price, category, description, image } = product;
     return (
         <div className="w-full max-w-[340px] space-y-3 rounded-xl bg-white p-4 shadow-lg dark:bg-[#18181B]">
             <div className="relative flex h-48 w-full justify-center lg:h-[260px]">
@@ -9,17 +12,17 @@ export default function ProductCard() {
                     <div className="flex items-center">
                         <svg width={30} className="cursor-pointer fill-transparent stroke-white stroke-2 hover:fill-red-500 hover:stroke-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"></path></svg>
                     </div>
-                    <button className="rounded-xl bg-[#0095FF] px-3 py-1 font-medium text-white duration-200 hover:bg-[#0095FF]/90">30% off</button>
+                    <button className="rounded-xl bg-[#0095FF] px-3 py-1 font-medium text-white duration-200 hover:bg-[#0095FF]/90"> {category}</button>
                 </div>
-                <img width={400} height={400} className="rounded-lg bg-black/40 object-cover" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="card navigate ui" />
+                <img width={400} height={400} className="rounded-lg bg-black/40 object-cover" src={image } alt={name} />
             </div>
             <div className="space-y-2 font-semibold">
-                <h6 className="text-sm md:text-base lg:text-lg">Product Name</h6>
-                <p className="text-xs font-semibold text-gray-400 md:text-sm">Waterproof Sport HD Monitor for MacBook</p>
-                <p>$20</p>
+                <h6 className="text-sm md:text-base lg:text-lg">{name}</h6>
+                <p className="text-xs font-semibold text-gray-400 md:text-sm">{description.substring(0, 50)}...</p>
+                <p>{formatPrice(price)}</p>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-6 text-sm md:text-base">
-                <Link to={`product/123`} className="rounded-lg bg-[#49B2FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">View Details</Link>
+                <Link to={`/product/${id}`} state={{product}} className="rounded-lg bg-[#49B2FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">View Details</Link>
                 <button className="rounded-lg bg-gray-400 px-4 py-2 font-semibold text-white duration-300 hover:scale-95 hover:bg-gray-600">Add to Cart</button>
             </div>
         </div>

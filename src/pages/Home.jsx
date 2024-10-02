@@ -14,7 +14,7 @@ export default function Home() {
         <>
             <Hero />
             <Support />
-            <LatestProducts  />
+            <LatestProducts limit="4"  />
             <AdBannar />
             {/* <Posts /> */}
             <Brand />
