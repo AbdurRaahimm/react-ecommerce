@@ -29,9 +29,6 @@ export default function FilterProducts({ state, products, setState }) {
                                     onClick={() => setState({ ...state, category })}
                                     className="text-gray-500 capitalize">
                                     {category}
-                                    {/* active  */}
-
-
                                     ({products.filter((product) => product.category === category).length})
                                     {state.category === category && <span className="text-sky-500"> &#10003;</span>}
                                 </button></li>

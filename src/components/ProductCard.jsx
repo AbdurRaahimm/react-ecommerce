@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { formatPrice } from "../libs/formatPrice";
+import { AddToCart } from "./AddToCart";
 
 export default function ProductCard({ product }) {
-    // console.log(product);
     const { id, name, price, category, description, image } = product;
     return (
-        <div className="w-full max-w-[340px] space-y-3 rounded-xl bg-white p-4 shadow-lg dark:bg-[#18181B]">
+        <div className="w-full max-w-[340px] space-y-3 sm:space-y-0 rounded-xl bg-white p-4 shadow-lg dark:bg-[#18181B]">
             <div className="relative flex h-48 w-full justify-center lg:h-[260px]">
                 <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
                     {/* love  */}
@@ -23,7 +23,7 @@ export default function ProductCard({ product }) {
             </div>
             <div className="flex flex-wrap items-center justify-between gap-6 text-sm md:text-base">
                 <Link to={`/product/${id}`} state={{product}} className="rounded-lg bg-[#49B2FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">View Details</Link>
-                <button className="rounded-lg bg-gray-400 px-4 py-2 font-semibold text-white duration-300 hover:scale-95 hover:bg-gray-600">Add to Cart</button>
+                <AddToCart product={product} />
             </div>
         </div>
     );

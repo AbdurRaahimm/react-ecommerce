@@ -20,6 +20,8 @@ export default function Shop() {
     stars: 0,
     sortCriteria: '',
   });
+
+  
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-3 py-2">
       {/* <button className='block md:hidden border'>open</button> */}
@@ -32,8 +34,8 @@ export default function Shop() {
         {/* 2 */}
         <div className="flex justify-between flex-col md:flex-row  bg-white py-1 px-2">
           <div className="space-x-3 flex">
-            <button className='bg-black text-white px-1 rounded-sm'><i className='bi bi-grid'></i></button>
-            <button className='bg-gray-300 text-black px-1 rounded-sm font-bold'><i className='bi bi-list-ul'></i></button>
+            <button  className='bg-black text-white px-1 rounded-sm'><i className='bi bi-grid'></i></button>
+            <button  className='bg-gray-300 text-black px-1 rounded-sm font-bold'><i className='bi bi-list-ul'></i></button>
           </div>
           <div className='flex justify-between'>
             <span className="text-muted-foreground mr-2"> {products.length} total products</span>

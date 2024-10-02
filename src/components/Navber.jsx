@@ -2,15 +2,18 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { menus } from '../data/menus'
 import SearchModal from './SearchModal'
+import { useCartContext } from '../context/cart'
 
 export default function Navber() {
+    const { totalItems } = useCartContext();
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const responseMenu = () => {
         document.querySelector('nav').classList.toggle('hidden')
     }
     return (
         <div className='sticky top-0 flex md:flex-row justify-between items-center shadow-md py-2 px-3 '>
             <Link to="/" className="text-2xl font-bold text-black capitalize italic flex justify-center items-center">
-                <img className='' src="/image.png" alt="logo" width={35} />
+                <img className='' src="/logo.png" alt="logo" width={35} />
                 ShopEasy
             </Link>
 
@@ -21,14 +24,14 @@ export default function Navber() {
                         menus.map(menu => (
                             <li key={menu.id} className="group flex cursor-pointer flex-col font-bold">
                                 <NavLink to={menu.link}
-                                style={({isActive})=>{
-                                    return {
-                                        color: isActive ? '#0ea5e9 ' : 'black',
-                                        fontWeight: isActive ? 'bold' : 'bold',
-                                        // borderBottom: isActive ? '3px solid rgb(0, 0, 0)' : '3px solid transparent',
-                                    }
-                                }}
-                                 className="capitalize font-bold">{menu.title}</NavLink>
+                                    style={({ isActive }) => {
+                                        return {
+                                            color: isActive ? '#0ea5e9 ' : 'black',
+                                            fontWeight: isActive ? 'bold' : 'bold',
+                                            // borderBottom: isActive ? '3px solid rgb(0, 0, 0)' : '3px solid transparent',
+                                        }
+                                    }}
+                                    className="capitalize font-bold">{menu.title}</NavLink>
                                 <span className="mt-[2px] h-[3px]  w-[0px] rounded-full bg-sky-500 transition-all duration-300 group-hover:w-full"></span>
                             </li>
                         ))
@@ -54,7 +57,11 @@ export default function Navber() {
                         <circle cx="20" cy="21" r="1"></circle>
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
-                    <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-center text-[10px] text-white">12</span>
+                    <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-center text-[10px] text-white">
+                        {
+                            totalItems || cart.length
+                        }
+                    </span>
                 </Link>
 
                 <svg onClick={responseMenu} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-list size-6 cursor-pointer md:hidden" viewBox="0 0 16 16">
@@ -65,7 +72,7 @@ export default function Navber() {
 
             <SearchModal />
 
-            
+
         </div>
     )
 }
