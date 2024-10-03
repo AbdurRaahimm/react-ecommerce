@@ -3,6 +3,7 @@ import { formatPrice } from "../libs/formatPrice";
 import { AddToCart } from "./AddToCart";
 
 export default function ProductCard({ product }) {
+    // console.log(product);
     const { id, name, price, category, description, image } = product;
     return (
         <div className="w-full max-w-[340px] space-y-3 sm:space-y-0 rounded-xl bg-white p-4 shadow-lg dark:bg-[#18181B]">
@@ -19,11 +20,11 @@ export default function ProductCard({ product }) {
             <div className="space-y-2 font-semibold">
                 <h6 className="text-sm md:text-base lg:text-lg">{name}</h6>
                 <p className="text-xs font-semibold text-gray-400 md:text-sm">{description.substring(0, 50)}...</p>
-                <p>{formatPrice(price)}</p>
+                <p>{formatPrice(price, 120)}</p>
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-6 text-sm md:text-base">
-                <Link to={`/product/${id}`} state={{product}} className="rounded-lg bg-[#49B2FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">View Details</Link>
-                <AddToCart product={product} />
+            <div className="w-full text-sm md:text-base space-y-3 pt-5 ">
+                <Link to={`/product/${id}`} state={{product}} className="w-full rounded-lg bg-[#49B2FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">View Details</Link>
+                {/* <AddToCart product={product} /> */}
             </div>
         </div>
     );

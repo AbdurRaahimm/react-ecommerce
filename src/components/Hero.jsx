@@ -29,7 +29,7 @@ const Hero = () => {
         <h1 className="lg:text-3xl mb-3">
           {products[currentSlider].name}
         </h1>
-        <p className="text-xs sm:text-sm md:text-base lg:text-lg">{products[currentSlider].description}</p>
+        <p className="text-xs sm:text-sm md:text-base lg:text-lg">{products[currentSlider].description.substring(0,120)}</p>
       </div>
       {/* slider container */}
       <div className="w-1/2 ml-auto overflow-hidden  absolute -right-5 lg:-right-16 z-50 px-4 py-10">
@@ -37,7 +37,7 @@ const Hero = () => {
           style={{ transform: `translateX(-${currentSlider * (isSmallScreen ? 98 : 200)}px)` }}>
           {/* products */}
           {products.map((slide, inx) => (
-            <image key={inx} src={slide.image}
+            <img key={inx} src={slide.image}
               className={`h-[180px] sm:h-[200px] lg:h-[320px] min-w-[90px] lg:min-w-[184px] ${currentSlider - 1 === inx ? 'scale-0' : 'scale-100 delay-500'
                 } drop-shadow-lg shadow-lg shadow-black bg-black/50 duration-300 rounded-lg z-50`}
               alt={slide.name} />
