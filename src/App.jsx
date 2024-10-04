@@ -13,6 +13,7 @@ import OfferModal from "./components/OfferModal"
 import Shop from "./pages/Shop"
 import Cart from "./pages/Cart"
 import About from "./pages/About"
+import Checkout from "./pages/Checkout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,10 +23,13 @@ const router = createBrowserRouter(
         <Route path="contact" element={<Contact />} />
         <Route path="products" element={<Shop />} />
         <Route path="products/:category" element={<Shop />} />  
-        <Route path="cart" element={<Cart />} />
+        <Route path="cart"  >
+          <Route index element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
+        </Route>
         <Route path="product/:id" element={<SingleProduct />} />
         <Route path="about" element={<About />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
         <Route path="posts" element={<Posts />} loader={Dataloader} />
       </Route>
     </>

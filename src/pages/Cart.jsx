@@ -61,6 +61,7 @@ export default function Cart() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 space-y-3 sm:space-y-0 sm:gap-4 py-5 px-4">
+          {/* cart items */}
           <div className="col-span-2 bg-white px-3 pb-4 rounded">
             <div className="mt-4 space-y-4 divide-y-2">
               {cart.map((product) => (
@@ -91,6 +92,7 @@ export default function Cart() {
               <button onClick={handleAllClear} className="bg-red-500 text-white px-3 py-2 rounded-md mt-3">Clear All</button>
             </div>
           </div>
+          {/* order summary */}
           <div className="bg-white rounded-md px-5 py-6">
             <h3 className="text-xl text-black/95 font-semibold capitalize">Order Summary</h3>
             <ul className="mt-4 space-y-4 divide-y-2">
@@ -107,7 +109,18 @@ export default function Cart() {
                   <span className="float-right">{formatPrice(totals, 120)}</span>
                 </h4>
               </li>
-              <button className="w-full rounded bg-[#092B56] text-white py-2 capitalize">Checkout</button>
+              <hr className="my-3" />
+              <Link to="checkout" state={{
+                cart,
+                subtotal,
+                shipping,
+                totals
+              }} className="pt-3">
+                <button className="w-full rounded bg-[#092B56] text-white py-2 capitalize">
+                  Proceed to checkout
+                </button>
+              </Link>
+
             </ul>
           </div>
         </div>
