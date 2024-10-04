@@ -14,6 +14,8 @@ import Shop from "./pages/Shop"
 import Cart from "./pages/Cart"
 import About from "./pages/About"
 import Checkout from "./pages/Checkout";
+import Order from "./pages/Order"
+import OrderSummary from "./pages/OrderSummary"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,8 +28,11 @@ const router = createBrowserRouter(
         <Route path="cart"  >
           <Route index element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
+          
         </Route>
         <Route path="product/:id" element={<SingleProduct />} />
+        <Route path="order" element={<Order />} />
+        <Route path="order-summary" element={<OrderSummary />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />
         <Route path="posts" element={<Posts />} loader={Dataloader} />

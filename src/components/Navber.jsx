@@ -5,10 +5,24 @@ import SearchModal from './SearchModal';
 import { useCartContext } from '../context/cart';
 
 export default function Navber() {
-    const { totalItems } = useCartContext();
+    const { totalItems } = useCartContext();  // Assume this context provides the total number of cart items
     const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('cart')) || []);
     const [isMenuVisible, setMenuVisible] = useState(false);
 
+    // Live update cart from localStorage
+    useEffect(() => {
+        const handleStorageChange = () => {
+            const updatedCart = JSON.parse(localStorage.getItem('cart')) || [];
+            setCart(updatedCart);
+        };
+
+        // Listen for changes in localStorage to update the cart state
+        window.addEventListener('storage', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -63,7 +77,7 @@ export default function Navber() {
                         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                     </svg>
                     <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-red-500 text-center text-[10px] text-white">
-                        {totalItems }
+                        {cart.length || totalItems}
                     </span>
                 </Link>
 

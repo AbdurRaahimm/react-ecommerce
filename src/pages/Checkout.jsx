@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { formatPrice } from '../libs/formatPrice';
 
 export default function Checkout() {
     const locate = useLocation();
+    const navigate = useNavigate();
     // const {cart,subtotal, shipping, totals } = locate.state;
     const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('cart')) || []);
     const [formData, setFormData] = useState({
@@ -32,6 +33,16 @@ export default function Checkout() {
         return first_name && last_name && email && address && city && zip && country;
     };
 
+    const orderDetails = {
+        user: formData,
+        paymentMethod,
+        orderId: Math.floor(Math.random() * 1000000),
+        orderDate: new Date().toLocaleString(),
+        orderTotal: formatPrice(totals, 120),
+
+        // setCart pass the cart data to the orderDetails
+    }
+
     const orderPlace = async (e) => {
         e.preventDefault();
 
@@ -50,9 +61,8 @@ export default function Checkout() {
         // Simulate order placing process (You might call an API here)
         setTimeout(() => {
             alert('Order placed successfully!');
-            setCart([]);
-            localStorage.removeItem('cart');
             setIsSubmitting(false);
+            navigate('/order-summary', {state: {orderDetails}});
         }, 2000); // Simulating delay for order processing
     };
 

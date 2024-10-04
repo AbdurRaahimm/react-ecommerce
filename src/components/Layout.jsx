@@ -8,7 +8,7 @@ import Topbar from './Topbar'
 export default function Layout() {
     return (
         <>
-            <header>
+            <header className='print:hidden'>
                 <Topbar />
                 <Navber />
             </header>
@@ -17,7 +17,9 @@ export default function Layout() {
                 <Outlet />
             </main>
 
-            <Footer />
+            <div className="print:hidden">
+                <Footer />
+            </div>
         </>
     )
 }
