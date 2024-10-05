@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCartContext } from '../context/cart';
+import { toast } from 'react-toastify';
 
 export const AddToCart = ({ product, quantity }) => {
     const [clicked, setClicked] = useState(false);
@@ -15,6 +16,7 @@ export const AddToCart = ({ product, quantity }) => {
         //    }
 
         await addToCart(quantity,product);
+        toast.success('Product added to cart');
     }
 
     useEffect(() => {

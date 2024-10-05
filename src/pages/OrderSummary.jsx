@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 export default function OrderSummary() {
     const [cart, setCart] = useState(() => JSON.parse(localStorage.getItem('cart')) || []);
@@ -14,6 +15,7 @@ export default function OrderSummary() {
         setCart([]);
         localStorage.removeItem('cart');
         navigate('/order')
+        toast.success('Order confirmed successfully');
     }
 
     return (

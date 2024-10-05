@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { formatPrice } from '../libs/formatPrice';
+import { toast } from 'react-toastify';
 
 export default function Checkout() {
     const locate = useLocation();
@@ -47,12 +48,12 @@ export default function Checkout() {
         e.preventDefault();
 
         if (!validateForm()) {
-            alert('Please fill out all shipping address fields.');
+            toast.error('Please fill out all shipping address fields.');
             return;
         }
 
         if (!paymentMethod) {
-            alert('Please select a payment method.');
+            toast.error('Please select a payment method.');
             return;
         }
 
@@ -60,7 +61,7 @@ export default function Checkout() {
 
         // Simulate order placing process (You might call an API here)
         setTimeout(() => {
-            alert('Order placed successfully!');
+            toast.success('Order placed successfully!');
             setIsSubmitting(false);
             navigate('/order-summary', {state: {orderDetails}});
         }, 2000); // Simulating delay for order processing

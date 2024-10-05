@@ -4,6 +4,7 @@ import { useCartContext } from "../context/cart";
 import emptyCart from '/cart.png';
 import { formatPrice } from "../libs/formatPrice";
 import { useProductContext } from "../context/products";
+import { toast } from "react-toastify";
 
 export default function Cart() {
   const { products } = useProductContext();
@@ -17,6 +18,7 @@ export default function Cart() {
   const handleRemoveCart = (product) => {
     removeFromCart(product);
     setCart(prevCart => prevCart.filter(item => item.id !== product.id));
+    toast.success('Product removed from cart');
   };
 
   const decreaseQuantity = (id) => {
@@ -42,6 +44,7 @@ export default function Cart() {
   const handleAllClear = () => {
     setCart([]);
     localStorage.removeItem('cart');
+    toast.success('All products removed from cart');
   };
 
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
