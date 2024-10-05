@@ -2,12 +2,13 @@ import { Link } from "react-router-dom";
 import { formatPrice } from "../libs/formatPrice";
 import { AddToCart } from "./AddToCart";
 
+
 export default function ProductCard({ product }) {
     // console.log(product);
     const { id, name, price, category, description, image } = product;
     return (
         <div className="w-full max-w-[340px] space-y-3 sm:space-y-0 rounded-xl bg-white p-4 shadow-lg dark:bg-[#18181B]">
-            <div className="relative flex h-48 w-full justify-center lg:h-[260px]">
+            <div className="relative flex h-48 w-full justify-center lg:h-[260px] overflow-hidden">
                 <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
                     {/* love  */}
                     <div className="flex items-center">
@@ -15,16 +16,18 @@ export default function ProductCard({ product }) {
                     </div>
                     <button className="rounded-xl bg-[#0095FF] px-3 py-1 font-medium text-white duration-200 hover:bg-[#0095FF]/90"> {category}</button>
                 </div>
-                <img width={400} height={400} className="rounded-lg bg-black/40 object-cover" src={image } alt={name} />
+                <img width={400} height={400} className="rounded-lg bg-black/40 object-cover transition-transform transform hover:scale-105 hover:rounded-lg " src={image} alt={name} />
             </div>
             <div className="space-y-2 font-semibold">
                 <h6 className="text-sm md:text-base lg:text-lg">{name}</h6>
                 <p className="text-xs font-semibold text-gray-400 md:text-sm">{description.substring(0, 50)}...</p>
                 <p>{formatPrice(price, 120)}</p>
             </div>
-            <div className="w-full text-sm md:text-base space-y-3 pt-5 ">
-                <Link to={`/product/${id}`} state={{product}} className="w-full rounded-lg bg-[#49B2FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">View Details</Link>
+            <div className="flex justify-between text-sm md:text-base ">
+                <Link to={`/product/${id}`} state={{ product }} className=" rounded-lg bg-[#0095FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-[#0095FF]/90">View Details</Link>
                 {/* <AddToCart product={product} /> */}
+                {/* quick view button */}
+                {/* <button className="rounded-lg bg-[#0095FF] px-4 py-2 font-semibold text-white duration-300 hover:scale-105 hover:bg-[#0095FF]/90">Quick View</button> */}
             </div>
         </div>
     );

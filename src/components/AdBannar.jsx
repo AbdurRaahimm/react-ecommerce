@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function AdBannar() {
   return (
-    <div className='flex justify-between items-center gap-5 px-5 py-5 md:flex-row flex-col'>
+    <div className='flex justify-between items-center gap-5 px-5 py-16 md:flex-row flex-col'>
         <div className="flex-1 bg-[url('https://bonik-react.vercel.app/assets/images/banners/banner-21.jpg')] bg-cover p-8">
             <h5 className='text-xl font-semibold'>Final Reduction</h5>
             <h3 className='text-3xl font-bold'>Sale up to 20% Off</h3>
