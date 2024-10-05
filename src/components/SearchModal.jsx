@@ -1,31 +1,115 @@
-import React from 'react'
+import React, { useState, useRef } from 'react';
+import { useProductContext } from '../context/products';
+import SearchResult from './SearchResult';
 
 export default function SearchModal() {
-    return (
-        <dialog className="w-full sm:w-6/12 rounded-md p-5">
+  const [isDragging, setIsDragging] = useState(false); // Track if modal is being dragged
+  const [position, setPosition] = useState({ x: 0, y: 0 }); // Track modal position
+  const [query, setQuery] = useState(''); // State for search query
+  const [filteredProducts, setFilteredProducts] = useState([]); // State for filtered products
 
-            <div className="flex justify-end p-2 ">
-                <button onClick={() => document.querySelector('dialog').close()} className="text-2xl"> &times; </button>
+  const { products } = useProductContext(); // Getting products from context
+  const dialogRef = useRef(null); // Reference to the modal element
 
-            </div>
+  // Handle search input change
+  const handleInputChange = (e) => {
+    const searchValue = e.target.value;
+    setQuery(searchValue);
 
-            <form action="" className=''>
-                <label className="relative block">
-                    <span className="sr-only">Search</span>
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                        </svg>
-                    </span>
-                    <input
-                        className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
-                        placeholder="Search Products..."
-                        type="search"
-                        name="search" />
-                </label>
-            </form>
+    // Filter products based on the search query
+    if (searchValue.trim() !== '') {
+      const filtered = products.filter((product) =>
+        product.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts([]);
+    }
+  };
 
-        </dialog>
+  // Handle drag start event
+  const handleDragStart = (e) => {
+    setIsDragging(true);
+    const { offsetLeft, offsetTop } = dialogRef.current; // Get current modal position
+    const { clientX, clientY } = e;
 
-    )
+    setPosition({ x: clientX - offsetLeft, y: clientY - offsetTop });
+  };
+
+  // Handle dragging the modal
+  const handleDrag = (e) => {
+    if (!isDragging) return;
+
+    const { clientX, clientY } = e;
+    const newX = clientX - position.x;
+    const newY = clientY - position.y;
+
+    // Update modal position
+    dialogRef.current.style.left = `${newX}px`;
+    dialogRef.current.style.top = `${newY}px`;
+  };
+
+  // Handle drag end event
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
+
+  return (
+    <dialog
+      ref={dialogRef}
+      className="w-full sm:w-6/12 rounded-md p-5 absolute cursor-move bg-white shadow-lg z-50"
+      style={{ top: '50px', left: '50px' }}
+      onMouseDown={handleDragStart}
+      onMouseMove={handleDrag}
+      onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragEnd} // Prevents the dragging if the cursor leaves the modal
+    >
+      <div className="flex justify-end p-2">
+        <button
+          onClick={() => dialogRef.current.close()} // Close the modal
+          className="text-2xl"
+        >
+          &times;
+        </button>
+      </div>
+
+      <form>
+        <label className="relative block">
+          <span className="sr-only">Search</span>
+          <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-search"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </span>
+          <input
+            className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+            placeholder="Search Products..."
+            type="search"
+            value={query}
+            onChange={handleInputChange} // Search input change handler
+          />
+        </label>
+      </form>
+
+      {/* Suggestion List */}
+      {filteredProducts.length === 0 && query.trim() !== '' && (
+        <p className="mt-4 text-gray-500">No products found</p>
+      )}
+
+      {filteredProducts.length > 0 && (
+        <div className="mt-4 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-md shadow-md">
+          {filteredProducts.map((product) => (
+            <SearchResult key={product.id} product={product} />
+          ))}
+        </div>
+      )}
+    </dialog>
+  );
 }
