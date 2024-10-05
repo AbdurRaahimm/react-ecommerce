@@ -33,7 +33,7 @@ export default function Navber() {
     };
 
     return (
-        <>
+        <div className='bg-white'>
             <div className='sticky top-0 flex md:flex-row justify-between items-center shadow-md py-2 px-3'>
                 <Link to="/" className="text-2xl font-bold text-black capitalize italic flex justify-center items-center">
                     <img src="/logo.png" alt="logo" width={35} />
@@ -128,6 +128,6 @@ export default function Navber() {
                     ))}
                 </ul>
             </div>
-        </>
+        </div>
     );
 }
