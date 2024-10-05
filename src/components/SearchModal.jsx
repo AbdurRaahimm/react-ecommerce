@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useProductContext } from '../context/products';
 import SearchResult from './SearchResult';
 
@@ -54,11 +54,12 @@ export default function SearchModal() {
     setIsDragging(false);
   };
 
+  // when user click in keyboard `Ctrl + K` then open the dialog and focus the input field and close the dialog when user press `Esc` key 
+
   return (
     <dialog
       ref={dialogRef}
-      className="w-full sm:w-6/12 rounded-md p-5 absolute cursor-move bg-white shadow-lg z-50"
-      style={{ top: '50px', left: '50px' }}
+      className="w-full  md:w-8/12 rounded-md p-5  cursor-move bg-white shadow-lg z-50"
       onMouseDown={handleDragStart}
       onMouseMove={handleDrag}
       onMouseUp={handleDragEnd}
@@ -89,13 +90,16 @@ export default function SearchModal() {
             </svg>
           </span>
           <input
-            className="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+            className=" placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
             placeholder="Search Products..."
             type="search"
             value={query}
             onChange={handleInputChange} // Search input change handler
           />
         </label>
+        {/* Esc text in last */} 
+        <p className="text-xs text-gray-500 mt-1">Press `Esc` to close</p>
+
       </form>
 
       {/* Suggestion List */}
