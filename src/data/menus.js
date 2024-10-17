@@ -11,7 +11,7 @@ export const menus = [
     },
     {
         id: 3,
-        title: 'About',
+        title: 'About Us',
         link: '/about',
     },
     {
